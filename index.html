@@ -30,6 +30,7 @@
         radial-gradient(circle at 100% 10%, rgba(255, 226, 193, .58), transparent 25%),
         linear-gradient(145deg, #fff5eb 0%, #fffdf9 54%, #fff1e4 100%);
       overflow-x: hidden;
+      overflow-y: scroll;
     }
 
     body::before, body::after {
@@ -50,7 +51,7 @@
     .page {
       width: min(100% - 32px, 520px);
       margin: 0 auto;
-      padding: 30px 0 28px;
+      padding: 30px 0 180px;
     }
 
     .shell {
@@ -168,12 +169,13 @@
     }
     @media (prefers-reduced-motion: reduce) { .address-card { transition: none; } }
 
-    .card-fold { margin-top: 22px; }
+    .card-fold { max-height: 0; margin-top: 0; overflow: hidden; opacity: 0; transform: translateY(-6px) scale(.99); pointer-events: none; transition: max-height .38s ease, margin-top .38s ease, opacity .26s ease, transform .38s ease; }
+    .card-fold.is-open { max-height: 360px; margin-top: 8px; opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
     .card-fold summary { display:flex; align-items:center; justify-content:center; min-height:44px; padding:11px 16px; border:1px solid rgba(255,255,255,.82); border-radius:14px; color:var(--orange-deep); background:rgba(255,255,255,.48); box-shadow:0 8px 18px rgba(120,67,25,.08); cursor:pointer; font-size:12px; font-weight:700; list-style:none; }
     .card-fold summary::-webkit-details-marker { display:none; }
     .card-fold summary::after { margin-left:8px; content:"⌄"; font-size:18px; line-height:1; }
     .card-fold[open] summary::after { transform:rotate(180deg); }
-    .promo-card { position:relative; aspect-ratio:85.6/53.98; margin-top:12px; padding:6.2% 6.6%; border:1px solid rgba(106,58,20,.13); border-radius:20px; background:radial-gradient(circle at 90% 0%,#ffe0bb 0,transparent 34%),linear-gradient(135deg,#fffaf2,#fff 62%,#fff0df); box-shadow:0 18px 38px rgba(54,29,12,.18); overflow:hidden; }
+    .promo-card { position:relative; aspect-ratio:85.6/53.98; padding:6.2% 6.6%; border:1px solid rgba(106,58,20,.13); border-radius:20px; background:radial-gradient(circle at 90% 0%,#ffe0bb 0,transparent 34%),linear-gradient(135deg,#fffaf2,#fff 62%,#fff0df); overflow:hidden; }
     .promo-card::before { position:absolute; right:-55px; bottom:-80px; width:230px; height:230px; border-radius:50%; background:rgba(247,145,67,.13); content:""; }
     .promo-top { position:relative; display:flex; align-items:center; gap:10px; }
     .promo-logo { width:16%; aspect-ratio:1; border-radius:24%; object-fit:cover; }
@@ -190,6 +192,9 @@
     .promo-url { right:7.2%; } .promo-tg { left:6.6%; color:#76685c; font-weight:650; }
     .download { position:absolute; top:10px; right:10px; display:grid; place-items:center; width:34px; height:34px; border:0; border-radius:50%; color:#fff; background:var(--orange); box-shadow:0 8px 18px rgba(201,92,13,.25); cursor:pointer; }
     .download svg { width:17px; height:17px; }
+    @media (prefers-reduced-motion: reduce) {
+      .card-fold { transition: none; transform: none; }
+    }
 
   </style>
 </head>
@@ -217,7 +222,7 @@
             <span class="arrow" aria-hidden="true">›</span>
           </a>
 
-          <div class="card-fold" id="promoFold" hidden>
+          <div class="card-fold" id="promoFold" aria-hidden="true" inert>
             <div class="promo-card" aria-label="超级兔子宣传卡片">
               <div class="promo-top"><img class="promo-logo" src="https://surabbit.com/usr/uploads/2026/09/3055456685.jpg" alt="超级兔子 logo" /><div><div class="promo-brand">超级兔子</div><div class="promo-vpn">VPN</div></div></div>
               <div class="promo-tagline">畅享全球内容</div><div class="promo-desc">AI 工具 · 流媒体 · 跨境电商</div>
@@ -238,10 +243,18 @@
     qrImage.src='https://api.qrserver.com/v1/create-qr-code/?size=260x260&margin=0&data='+encodeURIComponent(address);
     const addressCard=document.querySelector('.address-card'), promoFold=document.getElementById('promoFold');
     let longPressTimer, longPressTriggered=false;
+    const setPromoOpen=open=>{
+      promoFold.classList.toggle('is-open',open);
+      promoFold.setAttribute('aria-hidden',String(!open));
+      promoFold.inert=!open;
+    };
     const cancelLongPress=()=>{clearTimeout(longPressTimer);longPressTimer=null};
     addressCard.addEventListener('pointerdown',()=>{
       longPressTriggered=false;
-      longPressTimer=setTimeout(()=>{longPressTriggered=true;promoFold.hidden=!promoFold.hidden},600);
+      longPressTimer=setTimeout(()=>{
+        longPressTriggered=true;
+        setPromoOpen(!promoFold.classList.contains('is-open'));
+      },600);
     });
     ['pointerup','pointercancel','pointerleave'].forEach(type=>addressCard.addEventListener(type,cancelLongPress));
     addressCard.addEventListener('contextmenu',event=>event.preventDefault());
