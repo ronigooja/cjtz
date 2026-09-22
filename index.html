@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#eff9f6" />
+  <meta name="description" content="Surabbit 地址发布页" />
+  <title>Surabbit · 地址发布页</title>
+  <style>
+    :root {
+      --ink: #173b3b;
+      --muted: #6c8985;
+      --mint: #75cbb5;
+      --mint-deep: #319d89;
+      --line: rgba(255, 255, 255, .72);
+      --glass: rgba(255, 255, 255, .64);
+      --shadow: 0 24px 70px rgba(45, 129, 113, .14);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-height: 100svh;
+      margin: 0;
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background:
+        radial-gradient(circle at 7% 2%, rgba(167, 235, 215, .8), transparent 31%),
+        radial-gradient(circle at 99% 18%, rgba(255, 226, 180, .48), transparent 27%),
+        linear-gradient(145deg, #edf9f6 0%, #f8fbf6 52%, #f1faf6 100%);
+      overflow-x: hidden;
+    }
+
+    body::before, body::after {
+      position: fixed;
+      z-index: -1;
+      display: block;
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      content: "";
+      filter: blur(2px);
+      opacity: .4;
+      pointer-events: none;
+    }
+    body::before { top: 42%; left: -150px; background: #bbead8; }
+    body::after { right: -150px; bottom: 4%; background: #f9dfad; }
+
+    .page {
+      width: min(100% - 32px, 520px);
+      margin: 0 auto;
+      padding: 42px 0 28px;
+    }
+
+    .shell {
+      position: relative;
+      overflow: hidden;
+      padding: 30px 20px 20px;
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      background: rgba(255, 255, 255, .35);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(22px) saturate(130%);
+      -webkit-backdrop-filter: blur(22px) saturate(130%);
+    }
+    .shell::before {
+      position: absolute;
+      top: -78px;
+      right: -52px;
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .48);
+      content: "";
+    }
+
+    header { position: relative; text-align: center; }
+    .logo-wrap {
+      display: grid;
+      place-items: center;
+      width: 82px;
+      height: 82px;
+      margin: 0 auto 18px;
+      border: 4px solid rgba(255,255,255,.78);
+      border-radius: 26px;
+      background: rgba(255,255,255,.5);
+      box-shadow: 0 12px 30px rgba(44, 140, 121, .15);
+    }
+    .logo {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: 21px;
+      object-fit: cover;
+    }
+    h1 { margin: 0; font-size: clamp(24px, 7vw, 31px); letter-spacing: .02em; }
+    .subtitle { margin: 9px 0 0; color: var(--muted); font-size: 14px; letter-spacing: .09em; }
+
+    .address-list { display: grid; gap: 13px; margin: 31px 0 25px; }
+    .address-card {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      min-height: 72px;
+      padding: 12px 12px 12px 15px;
+      border: 1px solid rgba(255,255,255,.78);
+      border-radius: 20px;
+      color: inherit;
+      text-decoration: none;
+      background: var(--glass);
+      box-shadow: 0 10px 24px rgba(53, 129, 113, .06);
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .address-card:active { transform: scale(.985); }
+    @media (hover: hover) {
+      .address-card:hover { transform: translateY(-2px); background: rgba(255,255,255,.82); box-shadow: 0 14px 28px rgba(53,129,113,.13); }
+    }
+    .site-icon {
+      display: grid;
+      flex: 0 0 43px;
+      place-items: center;
+      width: 43px;
+      height: 43px;
+      border-radius: 14px;
+      color: white;
+      font-weight: 700;
+      background: linear-gradient(140deg, #a5e6d0, #53bda6);
+    }
+    .address-info { min-width: 0; flex: 1; }
+    .address-label { margin-bottom: 4px; font-size: 12px; color: var(--muted); }
+    .address-url { overflow: hidden; color: var(--ink); font-size: 15px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+    .arrow { color: var(--mint-deep); font-size: 24px; font-weight: 300; line-height: 1; }
+
+    .tip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+    }
+    .tip-dot { width: 6px; height: 6px; border-radius: 99px; background: var(--mint); }
+    footer { margin-top: 27px; color: rgba(67, 110, 101, .65); font-size: 11px; text-align: center; letter-spacing: .05em; }
+
+    @media (min-width: 600px) {
+      .page { padding-top: 72px; }
+      .shell { padding: 40px 34px 25px; }
+    }
+    @media (prefers-reduced-motion: reduce) { .address-card { transition: none; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="shell" aria-labelledby="page-title">
+      <header>
+        <div class="logo-wrap">
+          <img class="logo" src="https://surabbit.com/usr/uploads/2026/09/3055456685.jpg" alt="Surabbit logo" />
+        </div>
+        <h1 id="page-title">Surabbit</h1>
+        <p class="subtitle">最新地址发布页</p>
+      </header>
+
+      <!-- 后续新增地址时，复制一个 .address-card 并修改 href、label 与 URL 即可 -->
+      <nav class="address-list" aria-label="网站地址列表">
+        <a class="address-card" href="https://surabbit.com" target="_blank" rel="noopener noreferrer">
+          <span class="site-icon" aria-hidden="true">S</span>
+          <span class="address-info">
+            <span class="address-label">主站地址</span>
+            <span class="address-url">https://surabbit.com</span>
+          </span>
+          <span class="arrow" aria-hidden="true">›</span>
+        </a>
+      </nav>
+
+      <p class="tip"><span class="tip-dot" aria-hidden="true"></span>点击卡片即可访问，请收藏本页面</p>
+      <footer>Keep it simple · Stay connected</footer>
+    </section>
+  </main>
+</body>
+</html>
