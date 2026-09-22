@@ -217,7 +217,7 @@
             <span class="arrow" aria-hidden="true">›</span>
           </a>
 
-          <details class="card-fold" id="promoFold">
+          <div class="card-fold" id="promoFold" hidden>
             <div class="promo-card" aria-label="超级兔子宣传卡片">
               <div class="promo-top"><img class="promo-logo" src="https://surabbit.com/usr/uploads/2026/09/3055456685.jpg" alt="超级兔子 logo" /><div><div class="promo-brand">超级兔子</div><div class="promo-vpn">VPN</div></div></div>
               <div class="promo-tagline">畅享全球内容</div><div class="promo-desc">AI 工具 · 流媒体 · 跨境电商</div>
@@ -225,7 +225,7 @@
               <div class="qr-wrap"><img id="qrImage" alt="官网二维码" /><span class="qr-caption">扫码访问官网</span></div><div class="promo-tg">Telegram：@cjtzpd</div><div class="promo-url">surabbit.com</div>
               <button class="download" id="downloadCard" type="button" aria-label="下载宣传卡片" title="下载宣传卡片"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg></button>
             </div>
-          </details>
+          </div>
         </div>
       </nav>
 
@@ -241,7 +241,7 @@
     const cancelLongPress=()=>{clearTimeout(longPressTimer);longPressTimer=null};
     addressCard.addEventListener('pointerdown',()=>{
       longPressTriggered=false;
-      longPressTimer=setTimeout(()=>{longPressTriggered=true;promoFold.open=!promoFold.open},600);
+      longPressTimer=setTimeout(()=>{longPressTriggered=true;promoFold.hidden=!promoFold.hidden},600);
     });
     ['pointerup','pointercancel','pointerleave'].forEach(type=>addressCard.addEventListener(type,cancelLongPress));
     addressCard.addEventListener('contextmenu',event=>event.preventDefault());
