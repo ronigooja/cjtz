@@ -169,30 +169,50 @@
     }
     @media (prefers-reduced-motion: reduce) { .address-card { transition: none; } }
 
-    .card-fold { position: relative; aspect-ratio: 85.6 / 53.98; margin-top: 8px; overflow: hidden; pointer-events: none; contain: layout paint; }
+    .card-fold { position: relative; height: 0; margin-top: 8px; overflow: hidden; pointer-events: none; contain: layout paint; }
+    .card-fold.is-open { height: auto; aspect-ratio: 85.6 / 53.98; }
     .card-fold .promo-card { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: auto; opacity: 0; transform: translateY(-8px) scale(.985); pointer-events: none; transition: opacity .22s ease, transform .32s cubic-bezier(.22,.61,.36,1); will-change: opacity, transform; }
     .card-fold.is-open .promo-card { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
     .card-fold summary { display:flex; align-items:center; justify-content:center; min-height:44px; padding:11px 16px; border:1px solid rgba(255,255,255,.82); border-radius:14px; color:var(--orange-deep); background:rgba(255,255,255,.48); box-shadow:0 8px 18px rgba(120,67,25,.08); cursor:pointer; font-size:12px; font-weight:700; list-style:none; }
     .card-fold summary::-webkit-details-marker { display:none; }
     .card-fold summary::after { margin-left:8px; content:"⌄"; font-size:18px; line-height:1; }
     .card-fold[open] summary::after { transform:rotate(180deg); }
-    .promo-card { position:relative; aspect-ratio:85.6/53.98; padding:6.2% 6.6%; border:1px solid rgba(106,58,20,.13); border-radius:20px; background:radial-gradient(circle at 90% 0%,#ffe0bb 0,transparent 34%),linear-gradient(135deg,#fffaf2,#fff 62%,#fff0df); overflow:hidden; }
-    .promo-card::before { position:absolute; right:-55px; bottom:-80px; width:230px; height:230px; border-radius:50%; background:rgba(247,145,67,.13); content:""; }
-    .promo-top { position:relative; display:flex; align-items:center; gap:10px; }
-    .promo-logo { width:16%; aspect-ratio:1; border-radius:24%; object-fit:cover; }
-    .promo-brand { font-size:clamp(16px,4.8vw,25px); font-weight:850; }
-    .promo-vpn { margin-top:2px; color:var(--orange-deep); font-size:clamp(9px,2.6vw,14px); font-weight:850; letter-spacing:.2em; }
-    .promo-tagline { position:relative; margin-top:5.5%; font-size:clamp(13px,3.8vw,21px); font-weight:850; letter-spacing:.06em; }
-    .promo-desc { position:relative; margin-top:2.5%; color:#66574c; font-size:clamp(8px,2.2vw,12px); font-weight:650; }
-    .icon-grid { position:absolute; left:6.6%; bottom:14%; display:grid; grid-template-columns:repeat(3,1fr); gap:7px; width:29%; }
-    .icon-grid img { display:block; width:100%; aspect-ratio:1; border-radius:22%; background:#fff; box-shadow:0 4px 10px rgba(64,41,23,.1); }
-    .qr-wrap { position:absolute; right:7.2%; bottom:10%; display:grid; gap:4px; justify-items:center; padding:6px; border-radius:9px; background:#fff; box-shadow:0 7px 16px rgba(84,49,19,.13); }
-    .qr-wrap img { display:block; width:clamp(48px,17vw,83px); aspect-ratio:1; }
-    .qr-caption { color:var(--orange-deep); font-size:clamp(7px,1.9vw,10px); font-weight:800; white-space:nowrap; }
-    .promo-url,.promo-tg { position:absolute; bottom:4%; color:#5b4b40; font-size:clamp(7px,1.8vw,10px); font-weight:700; }
-    .promo-url { right:7.2%; } .promo-tg { left:6.6%; color:#76685c; font-weight:650; }
-    .download { position:absolute; top:10px; right:10px; display:grid; place-items:center; width:34px; height:34px; border:0; border-radius:50%; color:#fff; background:var(--orange); box-shadow:0 8px 18px rgba(201,92,13,.25); cursor:pointer; }
-    .download svg { width:17px; height:17px; }
+    .download { position:absolute; top:12px; right:12px; display:grid; place-items:center; width:30px; height:30px; border:0; border-radius:50%; color:#fff; background:rgba(243,128,32,.9); box-shadow:0 6px 14px rgba(201,92,13,.22); cursor:pointer; opacity:.88; transition:opacity .2s ease, transform .2s ease; }
+    .download:hover, .download:focus-visible { opacity:1; transform:translateY(-1px); }
+    .download svg { width:15px; height:15px; }
+    .promo-card { position:relative; aspect-ratio:85.6/53.98; padding:0; border:1px solid #292726; border-radius:20px; background:#141312; color:#fff; overflow:hidden; }
+    .promo-card::before { position:absolute; right:-82px; bottom:-118px; width:275px; height:275px; border:1px solid rgba(239,101,27,.24); border-radius:50%; content:""; }
+    .promo-card::after { position:absolute; top:0; right:0; width:30%; height:3px; background:#f16b20; content:""; }
+    .promo-brand-block { position:absolute; z-index:1; top:13%; left:8%; display:flex; align-items:center; gap:9px; }
+    .promo-logo { width:15%; min-width:15%; aspect-ratio:1; border-radius:24%; object-fit:cover; }
+    .promo-brand { font-family:"Noto Sans CJK SC","PingFang SC","Microsoft YaHei",sans-serif; font-size:clamp(17px,4.6vw,25px); font-weight:850; letter-spacing:.045em; }
+    .promo-vpn { margin-top:1px; color:#f16b20; font-size:clamp(7px,1.9vw,10px); font-weight:850; letter-spacing:.16em; }
+    .promo-copy { position:absolute; z-index:1; top:49%; left:8%; width:52%; }
+    .promo-copy::before { display:block; width:28px; height:2px; margin-bottom:9px; background:#f16b20; content:""; }
+    .promo-tagline { position:static; max-width:none; margin:0; font-family:"Noto Sans CJK SC","PingFang SC","Microsoft YaHei",sans-serif; font-size:clamp(15px,4vw,22px); font-weight:900; letter-spacing:.08em; white-space:nowrap; }
+    .promo-desc { position:static; max-width:none; margin-top:6px; color:#b2a79e; font-size:clamp(8px,2vw,11px); font-weight:600; letter-spacing:.055em; white-space:nowrap; }
+    .promo-services { position:absolute; z-index:1; left:8%; bottom:9%; display:flex; align-items:center; gap:5px; width:40%; opacity:.88; }
+    .promo-services img { display:block; width:calc((100% - 40px) / 9); aspect-ratio:1; padding:1px; border-radius:20%; background:#fff; box-shadow:0 2px 5px rgba(0,0,0,.2); filter:brightness(1.06) contrast(1.08) saturate(1.04); }
+    .promo-qr { position:absolute; z-index:1; right:8%; top:21%; display:grid; justify-items:center; width:22%; }
+    .promo-qr::before { margin-bottom:6px; color:#f16b20; content:"扫码进入官网"; font-size:clamp(7px,1.7vw,9px); font-weight:800; letter-spacing:.12em; }
+    .promo-qr .qr-wrap { position:static; display:grid; gap:4px; justify-items:center; padding:6px; background:#fff; }
+    .promo-qr .qr-wrap img { display:block; width:clamp(51px,14vw,73px); aspect-ratio:1; }
+    .promo-url { position:static; margin-top:6px; color:#fff; font-size:clamp(7px,1.8vw,10px); font-weight:800; letter-spacing:.04em; }
+    .promo-tg { position:absolute; z-index:1; right:8%; bottom:10%; width:22%; color:#c1b5aa; font-size:clamp(7px,1.65vw,9px); font-weight:700; letter-spacing:.06em; text-align:center; }
+    @media print {
+      @page { size: 85.6mm 53.98mm; margin: 0; }
+      body { min-width: 85.6mm; background: #fff; }
+      body > *:not(.page) { display:none !important; }
+      .page { width: 85.6mm; margin: 0; padding: 0; }
+      .shell { width: 85.6mm; padding: 0; border: 0; border-radius: 0; box-shadow: none; background: transparent; }
+      .shell > *:not(.address-list) { display:none !important; }
+      .address-list { display:block; margin: 0; }
+      .address-entry > .address-card, .address-entry > .card-fold > summary { display:none !important; }
+      .card-fold, .card-fold .promo-card { display:block !important; opacity:1 !important; transform:none !important; }
+      .card-fold { height:auto; aspect-ratio: 85.6 / 53.98; margin:0; }
+      .promo-card { width:85.6mm; height:53.98mm; border:0; border-radius:0; }
+      .download { display:none !important; }
+    }
     @media (prefers-reduced-motion: reduce) {
       .card-fold .promo-card { transition: none; transform: none; }
     }
@@ -205,7 +225,7 @@
       <header>
         <div class="eyebrow">Official access</div>
         <div class="logo-wrap">
-          <img class="logo" src="https://surabbit.com/usr/uploads/2026/09/3055456685.jpg" alt="超级兔子 logo" />
+          <img class="logo" src="assets/img/logo.jpg" alt="超级兔子 logo" />
         </div>
         <h1 id="page-title">超级兔子</h1>
         <p class="subtitle">最新地址发布页</p>
@@ -223,12 +243,12 @@
             <span class="arrow" aria-hidden="true">›</span>
           </a>
 
-          <div class="card-fold is-open" id="promoFold" aria-hidden="false">
+          <div class="card-fold" id="promoFold" aria-hidden="true" inert>
             <div class="promo-card" aria-label="超级兔子宣传卡片">
-              <div class="promo-top"><img class="promo-logo" src="https://surabbit.com/usr/uploads/2026/09/3055456685.jpg" alt="超级兔子 logo" /><div><div class="promo-brand">超级兔子</div><div class="promo-vpn">VPN</div></div></div>
-              <div class="promo-tagline">畅享全球内容</div><div class="promo-desc">AI 工具 · 流媒体 · 跨境电商</div>
-              <div class="icon-grid"><img src="assets/img/chatgpt.png" alt="ChatGPT" /><img src="assets/img/claude.png" alt="Claude" /><img src="assets/img/google.png" alt="Google" /><img src="assets/img/instagram.png" alt="Instagram" /><img src="assets/img/netflix.png" alt="Netflix" /><img src="assets/img/shopify.png" alt="Shopify" /><img src="assets/img/tiktok.png" alt="TikTok" /><img src="assets/img/x.png" alt="X" /><img src="assets/img/youtube.png" alt="YouTube" /></div>
-              <div class="qr-wrap"><img id="qrImage" alt="官网二维码" /><span class="qr-caption">扫码访问官网</span></div><div class="promo-tg">Telegram：@cjtzpd</div><div class="promo-url">surabbit.com</div>
+              <div class="promo-brand-block"><img class="promo-logo" src="assets/img/logo.jpg" alt="超级兔子 logo" /><div><div class="promo-brand">超级兔子</div><div class="promo-vpn">GLOBAL ACCESS</div></div></div>
+              <div class="promo-copy"><div class="promo-tagline">连接全球精彩内容</div><div class="promo-desc">AI 工具 · 流媒体 · 海外平台</div></div>
+              <div class="promo-services" aria-label="支持的平台"><img src="assets/img/chatgpt.png" alt="ChatGPT" /><img src="assets/img/claude.png" alt="Claude" /><img src="assets/img/google.png" alt="Google" /><img src="assets/img/instagram.png" alt="Instagram" /><img src="assets/img/netflix.png" alt="Netflix" /><img src="assets/img/shopify.png" alt="Shopify" /><img src="assets/img/tiktok.png" alt="TikTok" /><img src="assets/img/x.png" alt="X" /><img src="assets/img/youtube.png" alt="YouTube" /></div>
+              <div class="promo-qr"><div class="qr-wrap"><img id="qrImage" alt="官网二维码" /></div><div class="promo-url">surabbit.com</div></div><div class="promo-tg">TG：@cjtzpd</div>
               <button class="download" id="downloadCard" type="button" aria-label="下载宣传卡片" title="下载宣传卡片"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg></button>
             </div>
           </div>
@@ -239,9 +259,16 @@
       <footer>Keep it simple · Stay connected</footer>
     </section>
   </main>
+  <script src="scripts/qrcode.js"></script>
+  <script src="scripts/qrcode_UTF8.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
   <script>
     const address='https://surabbit.com', qrImage=document.getElementById('qrImage');
-    qrImage.src='https://api.qrserver.com/v1/create-qr-code/?size=260x260&margin=0&data='+encodeURIComponent(address);
+    const qr = qrcode(0, 'M');
+    qr.addData(address);
+    qr.make();
+    qrImage.src = qr.createDataURL(4, 0);
     const addressCard=document.querySelector('.address-card'), promoFold=document.getElementById('promoFold');
     let longPressTimer, longPressTriggered=false;
     const setPromoOpen=open=>{
@@ -260,8 +287,66 @@
     ['pointerup','pointercancel','pointerleave'].forEach(type=>addressCard.addEventListener(type,cancelLongPress));
     addressCard.addEventListener('contextmenu',event=>event.preventDefault());
     addressCard.addEventListener('click',event=>{if(longPressTriggered){event.preventDefault();longPressTriggered=false}});
-    document.getElementById('downloadCard').addEventListener('click',()=>{const svg='<svg xmlns="http://www.w3.org/2000/svg" width="1011" height="638" viewBox="0 0 1011 638"><rect width="1011" height="638" rx="30" fill="#fffaf2"/><text x="68" y="105" font-family="Arial,sans-serif" font-size="52" font-weight="800" fill="#28221e">超级兔子</text><text x="70" y="140" font-family="Arial,sans-serif" font-size="24" font-weight="800" letter-spacing="6" fill="#c95c0d">VPN</text><text x="68" y="220" font-family="Arial,sans-serif" font-size="43" font-weight="800" fill="#28221e">畅享全球内容</text><text x="68" y="263" font-family="Arial,sans-serif" font-size="22" font-weight="600" fill="#66574c">AI 工具 · 流媒体 · 跨境电商</text><image href="'+qrImage.src+'" x="780" y="340" width="155" height="155"/><text x="803" y="520" font-family="Arial,sans-serif" font-size="18" font-weight="800" fill="#c95c0d">扫码访问官网</text><text x="70" y="572" font-family="Arial,sans-serif" font-size="19" fill="#76685c">Telegram：@cjtzpd</text><text x="790" y="590" font-family="Arial,sans-serif" font-size="19" fill="#5b4b40">surabbit.com</text></svg>';const blob=new Blob([svg],{type:'image/svg+xml;charset=utf-8'}),link=document.createElement('a');link.href=URL.createObjectURL(blob);link.download='super-rabbit-card.svg';link.click();URL.revokeObjectURL(link.href)});
+    const downloadButton=document.getElementById('downloadCard');
+    const waitForImages=async root=>{
+      const images=[...root.querySelectorAll('img')];
+      await Promise.all(images.map(image=>image.complete ? Promise.resolve() : new Promise(resolve=>{
+        image.addEventListener('load',resolve,{once:true});
+        image.addEventListener('error',resolve,{once:true});
+      })));
+      await Promise.all(images.map(image=>image.decode?.().catch(()=>{})));
+    };
+    const downloadPdf=async()=>{
+      if(!window.html2canvas||!window.jspdf?.jsPDF){window.print();return}
+      downloadButton.disabled=true;
+      downloadButton.setAttribute('aria-busy','true');
+      try{
+        await document.fonts?.ready;
+        await waitForImages(promoFold);
+        const canvas=await window.html2canvas(promoFold.querySelector('.promo-card'),{
+          backgroundColor:'#141312',
+          scale:Math.min(4,Math.max(3,window.devicePixelRatio||1)),
+          useCORS:true,
+          imageTimeout:15000,
+          logging:false,
+          ignoreElements:element=>element.classList?.contains('download')
+        });
+        const dpi=300, millimetersPerInch=25.4, trimWidth=85.6, trimHeight=53.98, bleed=3;
+        const mmToPixels=millimeters=>Math.round(millimeters/millimetersPerInch*dpi);
+        const trimPixels={width:mmToPixels(trimWidth),height:mmToPixels(trimHeight)};
+        const bleedPixels=mmToPixels(bleed);
+        const pressCanvas=document.createElement('canvas');
+        pressCanvas.width=trimPixels.width+bleedPixels*2;
+        pressCanvas.height=trimPixels.height+bleedPixels*2;
+        const pressContext=pressCanvas.getContext('2d');
+        pressContext.fillStyle='#141312';
+        pressContext.fillRect(0,0,pressCanvas.width,pressCanvas.height);
+        pressContext.drawImage(canvas,bleedPixels,bleedPixels,trimPixels.width,trimPixels.height);
+        const {jsPDF}=window.jspdf;
+        const pageWidth=trimWidth+bleed*2, pageHeight=trimHeight+bleed*2;
+        const pdf=new jsPDF({orientation:'landscape',unit:'mm',format:[pageWidth,pageHeight],compress:true});
+        pdf.addImage(pressCanvas.toDataURL('image/png'),'PNG',0,0,pageWidth,pageHeight,undefined,'FAST');
+        pdf.setDrawColor(0,0,0);
+        pdf.setLineWidth(.1);
+        const cropLength=4, cropOffset=1;
+        [[bleed,bleed],[pageWidth-bleed,bleed],[bleed,pageHeight-bleed],[pageWidth-bleed,pageHeight-bleed]].forEach(([x,y],index)=>{
+          const horizontalDirection=index%2===0?-1:1;
+          const verticalDirection=index<2?-1:1;
+          pdf.line(x+horizontalDirection*cropOffset,y,x+horizontalDirection*(cropOffset+cropLength),y);
+          pdf.line(x,y+verticalDirection*cropOffset,x,y+verticalDirection*(cropOffset+cropLength));
+        });
+        pdf.save('surabbit-promo-card.pdf');
+      }catch(error){
+        console.error('Unable to generate the promotional card PDF.',error);
+        window.print();
+      }finally{
+        downloadButton.disabled=false;
+        downloadButton.removeAttribute('aria-busy');
+      }
+    };
+    downloadButton.addEventListener('click',downloadPdf);
   </script>
 
 </body>
 </html>
+
