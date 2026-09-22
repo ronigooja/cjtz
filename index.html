@@ -217,20 +217,20 @@
         </a>
       </nav>
 
+      <details class="card-fold" id="promoFold">
+        <div class="promo-card" aria-label="超级兔子宣传卡片">
+          <div class="promo-top"><img class="promo-logo" src="https://surabbit.com/usr/uploads/2026/09/3055456685.jpg" alt="超级兔子 logo" /><div><div class="promo-brand">超级兔子</div><div class="promo-vpn">VPN</div></div></div>
+          <div class="promo-tagline">畅享全球内容</div><div class="promo-desc">AI 工具 · 流媒体 · 跨境电商</div>
+          <div class="icon-grid"><img src="assets/img/chatgpt.png" alt="ChatGPT" /><img src="assets/img/claude.png" alt="Claude" /><img src="assets/img/google.png" alt="Google" /><img src="assets/img/instagram.png" alt="Instagram" /><img src="assets/img/netflix.png" alt="Netflix" /><img src="assets/img/shopify.png" alt="Shopify" /><img src="assets/img/tiktok.png" alt="TikTok" /><img src="assets/img/x.png" alt="X" /><img src="assets/img/youtube.png" alt="YouTube" /></div>
+          <div class="qr-wrap"><img id="qrImage" alt="官网二维码" /><span class="qr-caption">扫码访问官网</span></div><div class="promo-tg">Telegram：@cjtzpd</div><div class="promo-url">surabbit.com</div>
+          <button class="download" id="downloadCard" type="button" aria-label="下载宣传卡片" title="下载宣传卡片"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg></button>
+        </div>
+      </details>
+
       <p class="tip"><span class="tip-dot" aria-hidden="true"></span>点击卡片即可访问，请收藏本页面</p>
       <footer>Keep it simple · Stay connected</footer>
     </section>
   </main>
-
-  <details class="card-fold" id="promoFold">
-    <div class="promo-card" aria-label="超级兔子宣传卡片">
-      <div class="promo-top"><img class="promo-logo" src="https://surabbit.com/usr/uploads/2026/09/3055456685.jpg" alt="超级兔子 logo" /><div><div class="promo-brand">超级兔子</div><div class="promo-vpn">VPN</div></div></div>
-      <div class="promo-tagline">畅享全球内容</div><div class="promo-desc">AI 工具 · 流媒体 · 跨境电商</div>
-      <div class="icon-grid"><img src="assets/img/chatgpt.png" alt="ChatGPT" /><img src="assets/img/claude.png" alt="Claude" /><img src="assets/img/google.png" alt="Google" /><img src="assets/img/instagram.png" alt="Instagram" /><img src="assets/img/netflix.png" alt="Netflix" /><img src="assets/img/shopify.png" alt="Shopify" /><img src="assets/img/tiktok.png" alt="TikTok" /><img src="assets/img/x.png" alt="X" /><img src="assets/img/youtube.png" alt="YouTube" /></div>
-      <div class="qr-wrap"><img id="qrImage" alt="官网二维码" /><span class="qr-caption">扫码访问官网</span></div><div class="promo-tg">Telegram：@cjtzpd</div><div class="promo-url">surabbit.com</div>
-      <button class="download" id="downloadCard" type="button" aria-label="下载宣传卡片" title="下载宣传卡片"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg></button>
-    </div>
-  </details>
   <script>
     const address='https://surabbit.com', qrImage=document.getElementById('qrImage');
     qrImage.src='https://api.qrserver.com/v1/create-qr-code/?size=260x260&margin=0&data='+encodeURIComponent(address);
