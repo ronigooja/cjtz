@@ -222,8 +222,7 @@
     </section>
   </main>
 
-  <details class="card-fold">
-    <summary>展开宣传卡片</summary>
+  <details class="card-fold" id="promoFold">
     <div class="promo-card" aria-label="超级兔子宣传卡片">
       <div class="promo-top"><img class="promo-logo" src="https://surabbit.com/usr/uploads/2026/09/3055456685.jpg" alt="超级兔子 logo" /><div><div class="promo-brand">超级兔子</div><div class="promo-vpn">VPN</div></div></div>
       <div class="promo-tagline">畅享全球内容</div><div class="promo-desc">AI 工具 · 流媒体 · 跨境电商</div>
@@ -235,6 +234,16 @@
   <script>
     const address='https://surabbit.com', qrImage=document.getElementById('qrImage');
     qrImage.src='https://api.qrserver.com/v1/create-qr-code/?size=260x260&margin=0&data='+encodeURIComponent(address);
+    const addressCard=document.querySelector('.address-card'), promoFold=document.getElementById('promoFold');
+    let longPressTimer, longPressTriggered=false;
+    const cancelLongPress=()=>{clearTimeout(longPressTimer);longPressTimer=null};
+    addressCard.addEventListener('pointerdown',()=>{
+      longPressTriggered=false;
+      longPressTimer=setTimeout(()=>{longPressTriggered=true;promoFold.open=!promoFold.open},600);
+    });
+    ['pointerup','pointercancel','pointerleave'].forEach(type=>addressCard.addEventListener(type,cancelLongPress));
+    addressCard.addEventListener('contextmenu',event=>event.preventDefault());
+    addressCard.addEventListener('click',event=>{if(longPressTriggered){event.preventDefault();longPressTriggered=false}});
     document.getElementById('downloadCard').addEventListener('click',()=>{const svg='<svg xmlns="http://www.w3.org/2000/svg" width="1011" height="638" viewBox="0 0 1011 638"><rect width="1011" height="638" rx="30" fill="#fffaf2"/><text x="68" y="105" font-family="Arial,sans-serif" font-size="52" font-weight="800" fill="#28221e">超级兔子</text><text x="70" y="140" font-family="Arial,sans-serif" font-size="24" font-weight="800" letter-spacing="6" fill="#c95c0d">VPN</text><text x="68" y="220" font-family="Arial,sans-serif" font-size="43" font-weight="800" fill="#28221e">畅享全球内容</text><text x="68" y="263" font-family="Arial,sans-serif" font-size="22" font-weight="600" fill="#66574c">AI 工具 · 流媒体 · 跨境电商</text><image href="'+qrImage.src+'" x="780" y="340" width="155" height="155"/><text x="803" y="520" font-family="Arial,sans-serif" font-size="18" font-weight="800" fill="#c95c0d">扫码访问官网</text><text x="70" y="572" font-family="Arial,sans-serif" font-size="19" fill="#76685c">Telegram：@cjtzpd</text><text x="790" y="590" font-family="Arial,sans-serif" font-size="19" fill="#5b4b40">surabbit.com</text></svg>';const blob=new Blob([svg],{type:'image/svg+xml;charset=utf-8'}),link=document.createElement('a');link.href=URL.createObjectURL(blob);link.download='super-rabbit-card.svg';link.click();URL.revokeObjectURL(link.href)});
   </script>
 
