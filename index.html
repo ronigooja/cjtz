@@ -180,25 +180,25 @@
     .download { position:absolute; top:12px; right:12px; display:grid; place-items:center; width:30px; height:30px; border:0; border-radius:50%; color:#fff; background:rgba(243,128,32,.9); box-shadow:0 6px 14px rgba(201,92,13,.22); cursor:pointer; opacity:.88; transition:opacity .2s ease, transform .2s ease; }
     .download:hover, .download:focus-visible { opacity:1; transform:translateY(-1px); }
     .download svg { width:15px; height:15px; }
-    .promo-card { position:relative; aspect-ratio:85.6/53.98; padding:0; border:1px solid #292726; border-radius:20px; background:#141312; color:#fff; overflow:hidden; }
+    .promo-card { position:relative; aspect-ratio:85.6/53.98; padding:0; border:1px solid #292726; border-radius:20px; background:linear-gradient(145deg,#2b2723 0%,#1e1b18 100%); color:#fff; overflow:hidden; }
     .promo-card::before { position:absolute; right:-82px; bottom:-118px; width:275px; height:275px; border:1px solid rgba(239,101,27,.24); border-radius:50%; content:""; }
     .promo-card::after { position:absolute; top:0; right:0; width:30%; height:3px; background:#f16b20; content:""; }
     .promo-brand-block { position:absolute; z-index:1; top:13%; left:8%; display:flex; align-items:center; gap:9px; }
     .promo-logo { width:15%; min-width:15%; aspect-ratio:1; border-radius:24%; object-fit:cover; }
     .promo-brand { font-family:"Noto Sans CJK SC","PingFang SC","Microsoft YaHei",sans-serif; font-size:clamp(17px,4.6vw,25px); font-weight:850; letter-spacing:.045em; }
     .promo-vpn { margin-top:1px; color:#f16b20; font-size:clamp(7px,1.9vw,10px); font-weight:850; letter-spacing:.16em; }
-    .promo-copy { position:absolute; z-index:1; top:49%; left:8%; width:52%; }
+    .promo-copy { position:absolute; z-index:1; top:calc(47% + 5px); left:8%; width:52%; }
     .promo-copy::before { display:block; width:28px; height:2px; margin-bottom:9px; background:#f16b20; content:""; }
     .promo-tagline { position:static; max-width:none; margin:0; font-family:"Noto Sans CJK SC","PingFang SC","Microsoft YaHei",sans-serif; font-size:clamp(15px,4vw,22px); font-weight:900; letter-spacing:.08em; white-space:nowrap; }
-    .promo-desc { position:static; max-width:none; margin-top:6px; color:#b2a79e; font-size:clamp(8px,2vw,11px); font-weight:600; letter-spacing:.055em; white-space:nowrap; }
-    .promo-services { position:absolute; z-index:1; left:8%; bottom:9%; display:flex; align-items:center; gap:5px; width:40%; opacity:.88; }
-    .promo-services img { display:block; width:calc((100% - 40px) / 9); aspect-ratio:1; padding:1px; border-radius:20%; background:#fff; box-shadow:0 2px 5px rgba(0,0,0,.2); filter:brightness(1.06) contrast(1.08) saturate(1.04); }
+    .promo-desc { position:static; max-width:none; margin-top:6px; color:#b2a79e; font-size:clamp(8.5px,2.1vw,11.5px); font-weight:600; letter-spacing:.055em; white-space:nowrap; }
+    .promo-services { position:absolute; z-index:1; top:calc(69% + 14px); left:8%; display:flex; align-items:center; gap:6px; width:44%; opacity:.94; }
+    .promo-services img { display:block; width:calc((100% - 48px) / 9); aspect-ratio:1; border-radius:18%; object-fit:contain; filter:brightness(1.08) contrast(1.08) saturate(1.06); }
     .promo-qr { position:absolute; z-index:1; right:8%; top:21%; display:grid; justify-items:center; width:22%; }
     .promo-qr::before { margin-bottom:6px; color:#f16b20; content:"扫码进入官网"; font-size:clamp(7px,1.7vw,9px); font-weight:800; letter-spacing:.12em; }
-    .promo-qr .qr-wrap { position:static; display:grid; gap:4px; justify-items:center; padding:6px; background:#fff; }
+    .promo-qr .qr-wrap { position:static; display:grid; gap:4px; justify-items:center; padding:6px; border-radius:5px; background:#fff; overflow:hidden; }
     .promo-qr .qr-wrap img { display:block; width:clamp(51px,14vw,73px); aspect-ratio:1; }
     .promo-url { position:static; margin-top:6px; color:#fff; font-size:clamp(7px,1.8vw,10px); font-weight:800; letter-spacing:.04em; }
-    .promo-tg { position:absolute; z-index:1; right:8%; bottom:10%; width:22%; color:#c1b5aa; font-size:clamp(7px,1.65vw,9px); font-weight:700; letter-spacing:.06em; text-align:center; }
+    .promo-tg { position:absolute; z-index:1; right:8%; bottom:calc(16% + 20px); width:22%; color:#ffe0cc; font-size:clamp(7px,1.65vw,9px); font-weight:750; letter-spacing:.06em; text-align:center; }
     @media print {
       @page { size: 85.6mm 53.98mm; margin: 0; }
       body { min-width: 85.6mm; background: #fff; }
@@ -304,7 +304,7 @@
         await document.fonts?.ready;
         await waitForImages(promoFold);
         const canvas=await window.html2canvas(promoFold.querySelector('.promo-card'),{
-          backgroundColor:'#141312',
+          backgroundColor:null,
           scale:Math.min(4,Math.max(3,window.devicePixelRatio||1)),
           useCORS:true,
           imageTimeout:15000,
@@ -319,7 +319,19 @@
         pressCanvas.width=trimPixels.width+bleedPixels*2;
         pressCanvas.height=trimPixels.height+bleedPixels*2;
         const pressContext=pressCanvas.getContext('2d');
-        pressContext.fillStyle='#141312';
+        const gradientAngle=145*Math.PI/180;
+        const gradientDirection={x:Math.sin(gradientAngle),y:-Math.cos(gradientAngle)};
+        const gradientLength=Math.abs(trimPixels.width*gradientDirection.x)+Math.abs(trimPixels.height*gradientDirection.y);
+        const gradientCenter={x:pressCanvas.width/2,y:pressCanvas.height/2};
+        const bleedGradient=pressContext.createLinearGradient(
+          gradientCenter.x-gradientDirection.x*gradientLength/2,
+          gradientCenter.y-gradientDirection.y*gradientLength/2,
+          gradientCenter.x+gradientDirection.x*gradientLength/2,
+          gradientCenter.y+gradientDirection.y*gradientLength/2
+        );
+        bleedGradient.addColorStop(0,'#2b2723');
+        bleedGradient.addColorStop(1,'#1e1b18');
+        pressContext.fillStyle=bleedGradient;
         pressContext.fillRect(0,0,pressCanvas.width,pressCanvas.height);
         pressContext.drawImage(canvas,bleedPixels,bleedPixels,trimPixels.width,trimPixels.height);
         const {jsPDF}=window.jspdf;
@@ -349,4 +361,3 @@
 
 </body>
 </html>
-
