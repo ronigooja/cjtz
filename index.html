@@ -8,13 +8,13 @@
   <title>超级兔子 · 地址发布页</title>
   <style>
     :root {
-      --ink: #173b3b;
-      --muted: #6c8985;
-      --mint: #75cbb5;
-      --mint-deep: #319d89;
-      --line: rgba(255, 255, 255, .72);
-      --glass: rgba(255, 255, 255, .64);
-      --shadow: 0 24px 70px rgba(45, 129, 113, .14);
+      --ink: #123b3a;
+      --muted: #76908c;
+      --mint: #65c7ad;
+      --mint-deep: #238f7b;
+      --line: rgba(255, 255, 255, .8);
+      --glass: rgba(255, 255, 255, .6);
+      --shadow: 0 30px 90px rgba(35, 112, 96, .15);
     }
 
     * { box-sizing: border-box; }
@@ -25,9 +25,9 @@
       color: var(--ink);
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", sans-serif;
       background:
-        radial-gradient(circle at 7% 2%, rgba(167, 235, 215, .8), transparent 31%),
-        radial-gradient(circle at 99% 18%, rgba(255, 226, 180, .48), transparent 27%),
-        linear-gradient(145deg, #edf9f6 0%, #f8fbf6 52%, #f1faf6 100%);
+        radial-gradient(circle at 4% 0%, rgba(145, 231, 205, .7), transparent 27%),
+        radial-gradient(circle at 100% 10%, rgba(255, 217, 164, .48), transparent 25%),
+        linear-gradient(145deg, #eaf8f3 0%, #fbfcf8 54%, #eff9f4 100%);
       overflow-x: hidden;
     }
 
@@ -49,16 +49,16 @@
     .page {
       width: min(100% - 32px, 520px);
       margin: 0 auto;
-      padding: 42px 0 28px;
+      padding: 30px 0 28px;
     }
 
     .shell {
       position: relative;
       overflow: hidden;
-      padding: 30px 20px 20px;
-      border: 1px solid var(--line);
-      border-radius: 30px;
-      background: rgba(255, 255, 255, .35);
+      padding: 22px 18px 20px;
+      border: 1px solid rgba(255,255,255,.9);
+      border-radius: 34px;
+      background: linear-gradient(150deg, rgba(255,255,255,.57), rgba(255,255,255,.3));
       box-shadow: var(--shadow);
       backdrop-filter: blur(22px) saturate(130%);
       -webkit-backdrop-filter: blur(22px) saturate(130%);
@@ -75,16 +75,32 @@
     }
 
     header { position: relative; text-align: center; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 18px;
+      padding: 7px 11px;
+      border: 1px solid rgba(47, 154, 130, .15);
+      border-radius: 999px;
+      color: var(--mint-deep);
+      background: rgba(255,255,255,.48);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { width: 6px; height: 6px; border-radius: 50%; background: #52c69d; box-shadow: 0 0 0 4px rgba(82,198,157,.14); content: ""; }
     .logo-wrap {
       display: grid;
       place-items: center;
-      width: 82px;
-      height: 82px;
-      margin: 0 auto 18px;
-      border: 4px solid rgba(255,255,255,.78);
-      border-radius: 26px;
-      background: rgba(255,255,255,.5);
-      box-shadow: 0 12px 30px rgba(44, 140, 121, .15);
+      width: 86px;
+      height: 86px;
+      margin: 0 auto 19px;
+      border: 5px solid rgba(255,255,255,.86);
+      border-radius: 28px;
+      background: rgba(255,255,255,.52);
+      box-shadow: 0 17px 36px rgba(44, 140, 121, .2), 0 0 0 8px rgba(255,255,255,.2);
     }
     .logo {
       display: block;
@@ -93,22 +109,22 @@
       border-radius: 21px;
       object-fit: cover;
     }
-    h1 { margin: 0; font-size: clamp(24px, 7vw, 31px); letter-spacing: .02em; }
-    .subtitle { margin: 9px 0 0; color: var(--muted); font-size: 14px; letter-spacing: .09em; }
+    h1 { margin: 0; font-size: clamp(25px, 7vw, 32px); font-weight: 750; letter-spacing: .015em; }
+    .subtitle { margin: 10px 0 0; color: var(--muted); font-size: 13px; letter-spacing: .16em; }
 
-    .address-list { display: grid; gap: 13px; margin: 31px 0 25px; }
+    .address-list { display: grid; gap: 13px; margin: 32px 0 25px; }
     .address-card {
       display: flex;
       align-items: center;
       gap: 13px;
-      min-height: 72px;
-      padding: 12px 12px 12px 15px;
+      min-height: 78px;
+      padding: 13px 13px 13px 15px;
       border: 1px solid rgba(255,255,255,.78);
       border-radius: 20px;
       color: inherit;
       text-decoration: none;
-      background: var(--glass);
-      box-shadow: 0 10px 24px rgba(53, 129, 113, .06);
+      background: linear-gradient(110deg, rgba(255,255,255,.79), rgba(255,255,255,.47));
+      box-shadow: 0 12px 26px rgba(53, 129, 113, .075), inset 0 1px 0 rgba(255,255,255,.72);
       transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
     }
     .address-card:active { transform: scale(.985); }
@@ -119,17 +135,18 @@
       display: grid;
       flex: 0 0 43px;
       place-items: center;
-      width: 43px;
-      height: 43px;
-      border-radius: 14px;
+      width: 45px;
+      height: 45px;
+      border-radius: 15px;
       color: white;
       font-weight: 700;
-      background: linear-gradient(140deg, #a5e6d0, #53bda6);
+      background: linear-gradient(140deg, #a8ead7, #3eaa94);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.42), 0 7px 15px rgba(48,157,137,.2);
     }
     .address-info { min-width: 0; flex: 1; }
-    .address-label { margin-bottom: 4px; font-size: 12px; color: var(--muted); }
-    .address-url { overflow: hidden; color: var(--ink); font-size: 15px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
-    .arrow { color: var(--mint-deep); font-size: 24px; font-weight: 300; line-height: 1; }
+    .address-label { margin-bottom: 5px; color: var(--muted); font-size: 11px; letter-spacing: .05em; }
+    .address-url { overflow: hidden; color: var(--ink); font-size: 15px; font-weight: 650; letter-spacing: -.01em; text-overflow: ellipsis; white-space: nowrap; }
+    .arrow { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; color: var(--mint-deep); background: rgba(102,199,174,.12); font-size: 22px; font-weight: 300; line-height: 1; }
 
     .tip {
       display: flex;
@@ -142,11 +159,11 @@
       text-align: center;
     }
     .tip-dot { width: 6px; height: 6px; border-radius: 99px; background: var(--mint); }
-    footer { margin-top: 27px; color: rgba(67, 110, 101, .65); font-size: 11px; text-align: center; letter-spacing: .05em; }
+    footer { margin-top: 29px; color: rgba(67, 110, 101, .58); font-size: 10px; text-align: center; letter-spacing: .18em; text-transform: uppercase; }
 
     @media (min-width: 600px) {
       .page { padding-top: 72px; }
-      .shell { padding: 40px 34px 25px; }
+      .shell { padding: 28px 34px 26px; }
     }
     @media (prefers-reduced-motion: reduce) { .address-card { transition: none; } }
   </style>
@@ -155,6 +172,7 @@
   <main class="page">
     <section class="shell" aria-labelledby="page-title">
       <header>
+        <div class="eyebrow">Official access</div>
         <div class="logo-wrap">
           <img class="logo" src="https://surabbit.com/usr/uploads/2026/09/3055456685.jpg" alt="超级兔子 logo" />
         </div>
