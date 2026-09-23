@@ -170,7 +170,7 @@
     @media (prefers-reduced-motion: reduce) { .address-card { transition: none; } }
 
     .card-fold { position: relative; height: 0; margin-top: 8px; overflow: hidden; pointer-events: none; contain: layout paint; }
-    .card-fold.is-open { height: auto; aspect-ratio: 85.6 / 53.98; }
+    .card-fold.is-open { height: auto; aspect-ratio: 90 / 54; }
     .card-fold .promo-card { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: auto; opacity: 0; transform: translateY(-8px) scale(.985); pointer-events: none; transition: opacity .22s ease, transform .32s cubic-bezier(.22,.61,.36,1); will-change: opacity, transform; }
     .card-fold.is-open .promo-card { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
     .card-fold summary { display:flex; align-items:center; justify-content:center; min-height:44px; padding:11px 16px; border:1px solid rgba(255,255,255,.82); border-radius:14px; color:var(--orange-deep); background:rgba(255,255,255,.48); box-shadow:0 8px 18px rgba(120,67,25,.08); cursor:pointer; font-size:12px; font-weight:700; list-style:none; }
@@ -192,7 +192,7 @@
     .download { position:absolute; top:12px; right:12px; display:grid; place-items:center; width:30px; height:30px; border:0; border-radius:50%; color:#fff; background:rgba(243,128,32,.9); box-shadow:0 6px 14px rgba(201,92,13,.22); cursor:pointer; opacity:.88; transition:opacity .2s ease, transform .2s ease; }
     .download:hover, .download:focus-visible { opacity:1; transform:translateY(-1px); }
     .download svg { width:15px; height:15px; }
-    .promo-card { position:relative; aspect-ratio:85.6/53.98; padding:0; border:1px solid #292726; border-radius:20px; background:linear-gradient(145deg,#2b2723 0%,#1e1b18 100%); color:#fff; overflow:hidden; }
+    .promo-card { position:relative; aspect-ratio:90/54; padding:0; border:1px solid #292726; border-radius:20px; background:linear-gradient(145deg,#2b2723 0%,#1e1b18 100%); color:#fff; overflow:hidden; }
     .promo-card::before { position:absolute; right:-82px; bottom:-118px; width:275px; height:275px; border:1px solid rgba(239,101,27,.24); border-radius:50%; content:""; }
     .promo-card::after { position:absolute; top:0; right:0; width:30%; height:3px; background:#f16b20; content:""; }
     .promo-brand-block { position:absolute; z-index:1; top:13%; left:8%; display:flex; align-items:center; gap:9px; }
@@ -212,17 +212,17 @@
     .promo-url { position:static; margin-top:6px; color:#fff; font-size:clamp(7px,1.8vw,10px); font-weight:800; letter-spacing:.04em; }
     .promo-tg { position:absolute; z-index:1; right:8%; bottom:calc(16% + 20px); width:22%; color:#ffe0cc; font-size:clamp(7px,1.65vw,9px); font-weight:750; letter-spacing:.06em; text-align:center; }
     @media print {
-      @page { size: 85.6mm 53.98mm; margin: 0; }
-      body { min-width: 85.6mm; background: #fff; }
+      @page { size: 90mm 54mm; margin: 0; }
+      body { min-width: 90mm; background: #fff; }
       body > *:not(.page) { display:none !important; }
-      .page { width: 85.6mm; margin: 0; padding: 0; }
-      .shell { width: 85.6mm; padding: 0; border: 0; border-radius: 0; box-shadow: none; background: transparent; }
+      .page { width: 90mm; margin: 0; padding: 0; }
+      .shell { width: 90mm; padding: 0; border: 0; border-radius: 0; box-shadow: none; background: transparent; }
       .shell > *:not(.address-list) { display:none !important; }
       .address-list { display:block; margin: 0; }
       .address-entry > .address-card, .address-entry > .card-fold > summary { display:none !important; }
       .card-fold, .card-fold .promo-card { display:block !important; opacity:1 !important; transform:none !important; }
-      .card-fold { height:auto; aspect-ratio: 85.6 / 53.98; margin:0; }
-      .promo-card { width:85.6mm; height:53.98mm; border:0; border-radius:0; }
+      .card-fold { height:auto; aspect-ratio: 90 / 54; margin:0; }
+      .promo-card { width:90mm; height:54mm; border:0; border-radius:0; }
       .download { display:none !important; }
     }
     @media (prefers-reduced-motion: reduce) {
@@ -237,7 +237,7 @@
       <header>
         <div class="eyebrow">Official access</div>
         <div class="logo-wrap">
-          <img class="logo" src="assets/img/logo.jpg" alt="超级兔子 logo" />
+          <img class="logo" src="assets/img/logo.png" alt="超级兔子 logo" />
         </div>
         <h1 id="page-title">超级兔子</h1>
         <p class="subtitle">最新地址发布页</p>
@@ -257,7 +257,7 @@
 
           <div class="card-fold" id="promoFold" aria-hidden="true" inert>
             <div class="promo-card" aria-label="超级兔子宣传卡片">
-              <div class="promo-brand-block"><img class="promo-logo" src="assets/img/logo.jpg" alt="超级兔子 logo" /><div><div class="promo-brand">超级兔子</div><div class="promo-vpn">GLOBAL ACCESS</div></div></div>
+              <div class="promo-brand-block"><img class="promo-logo" src="assets/img/logo.png" alt="超级兔子 logo" /><div><div class="promo-brand">超级兔子</div><div class="promo-vpn">GLOBAL ACCESS</div></div></div>
               <div class="promo-copy"><div class="promo-tagline">连接全球精彩内容</div><div class="promo-desc">AI 工具 · 流媒体 · 海外平台</div></div>
               <div class="promo-services" aria-label="支持的平台"><img src="assets/img/chatgpt.png" alt="ChatGPT" /><img src="assets/img/claude.png" alt="Claude" /><img src="assets/img/google.png" alt="Google" /><img src="assets/img/instagram.png" alt="Instagram" /><img src="assets/img/netflix.png" alt="Netflix" /><img src="assets/img/shopify.png" alt="Shopify" /><img src="assets/img/tiktok.png" alt="TikTok" /><img src="assets/img/x.png" alt="X" /><img src="assets/img/youtube.png" alt="YouTube" /></div>
               <div class="promo-qr"><div class="qr-wrap"><img id="qrImage" alt="官网二维码" /></div><div class="promo-url">surabbit.com</div></div><div class="promo-tg">TG：@cjtzpd</div>
@@ -296,7 +296,7 @@
       const nextQr=qrcode(0,'M');
       nextQr.addData(target.toString());
       nextQr.make();
-      qrImage.src=nextQr.createDataURL(4,0);
+      qrImage.src=nextQr.createDataURL(16,0);
     };
     updateQr('');
     const addressCard=document.querySelector('.address-card'), promoFold=document.getElementById('promoFold');
@@ -359,17 +359,20 @@
       try{
         await document.fonts?.ready;
         await waitForImages(promoFold);
-        const canvas=await window.html2canvas(promoFold.querySelector('.promo-card'),{
+        const promoCard=promoFold.querySelector('.promo-card');
+        const dpi=600, millimetersPerInch=25.4, trimWidth=90, trimHeight=54, bleed=1;
+        const mmToPixels=millimeters=>Math.round(millimeters/millimetersPerInch*dpi);
+        const trimPixels={width:mmToPixels(trimWidth),height:mmToPixels(trimHeight)};
+        const cardBounds=promoCard.getBoundingClientRect();
+        const renderScale=Math.max(trimPixels.width/cardBounds.width,trimPixels.height/cardBounds.height);
+        const canvas=await window.html2canvas(promoCard,{
           backgroundColor:null,
-          scale:Math.min(4,Math.max(3,window.devicePixelRatio||1)),
+          scale:renderScale,
           useCORS:true,
           imageTimeout:15000,
           logging:false,
           ignoreElements:element=>element.classList?.contains('download')
         });
-        const dpi=300, millimetersPerInch=25.4, trimWidth=85.6, trimHeight=53.98, bleed=3;
-        const mmToPixels=millimeters=>Math.round(millimeters/millimetersPerInch*dpi);
-        const trimPixels={width:mmToPixels(trimWidth),height:mmToPixels(trimHeight)};
         const bleedPixels=mmToPixels(bleed);
         const pressCanvas=document.createElement('canvas');
         pressCanvas.width=trimPixels.width+bleedPixels*2;
