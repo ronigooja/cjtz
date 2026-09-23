@@ -177,6 +177,18 @@
     .card-fold summary::-webkit-details-marker { display:none; }
     .card-fold summary::after { margin-left:8px; content:"⌄"; font-size:18px; line-height:1; }
     .card-fold[open] summary::after { transform:rotate(180deg); }
+    .source-dialog[hidden] { display:none; }
+    .source-dialog { position:fixed; z-index:20; inset:0; display:grid; place-items:center; padding:20px; background:rgba(38,38,38,.32); }
+    .source-dialog-panel { width:min(100%,360px); padding:22px; border:1px solid rgba(255,255,255,.9); border-radius:22px; background:#fffaf5; box-shadow:0 24px 70px rgba(72,42,20,.24); }
+    .source-dialog-title { margin:0; color:var(--ink); font-size:18px; font-weight:750; }
+    .source-dialog-desc { margin:8px 0 15px; color:var(--muted); font-size:12px; line-height:1.6; }
+    .source-dialog-input { width:100%; padding:11px 12px; border:1px solid rgba(217,102,18,.28); border-radius:12px; outline:none; color:var(--ink); background:#fff; font:inherit; }
+    .source-dialog-input:focus { border-color:var(--orange); box-shadow:0 0 0 3px rgba(243,128,32,.14); }
+    .source-dialog-error { min-height:18px; margin:7px 0 0; color:#c44c22; font-size:11px; }
+    .source-dialog-actions { display:flex; justify-content:flex-end; gap:9px; margin-top:10px; }
+    .source-dialog-actions button { padding:9px 15px; border:0; border-radius:10px; cursor:pointer; font:inherit; font-size:12px; font-weight:700; }
+    .source-dialog-cancel { color:var(--muted); background:rgba(111,111,111,.1); }
+    .source-dialog-confirm { color:#fff; background:var(--orange); }
     .download { position:absolute; top:12px; right:12px; display:grid; place-items:center; width:30px; height:30px; border:0; border-radius:50%; color:#fff; background:rgba(243,128,32,.9); box-shadow:0 6px 14px rgba(201,92,13,.22); cursor:pointer; opacity:.88; transition:opacity .2s ease, transform .2s ease; }
     .download:hover, .download:focus-visible { opacity:1; transform:translateY(-1px); }
     .download svg { width:15px; height:15px; }
@@ -259,34 +271,78 @@
       <footer>Keep it simple · Stay connected</footer>
     </section>
   </main>
+  <div class="source-dialog" id="sourceDialog" role="dialog" aria-modal="true" aria-labelledby="sourceDialogTitle" hidden>
+    <form class="source-dialog-panel" id="sourceForm">
+      <h2 class="source-dialog-title" id="sourceDialogTitle">设置宣传渠道</h2>
+      <p class="source-dialog-desc">输入渠道标识，例如 store_a、agent_zhang。二维码会加入对应的 utm_source。</p>
+      <input class="source-dialog-input" id="sourceInput" name="utm_source" autocomplete="off" maxlength="64" placeholder="例如：store_a" required />
+      <p class="source-dialog-error" id="sourceError" aria-live="polite"></p>
+      <div class="source-dialog-actions">
+        <button class="source-dialog-cancel" id="sourceCancel" type="button">取消</button>
+        <button class="source-dialog-confirm" type="submit">生成宣传卡</button>
+      </div>
+    </form>
+  </div>
   <script src="scripts/qrcode.js"></script>
   <script src="scripts/qrcode_UTF8.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
   <script>
-    const address='https://surabbit.com', qrImage=document.getElementById('qrImage');
-    const qr = qrcode(0, 'M');
-    qr.addData(address);
-    qr.make();
-    qrImage.src = qr.createDataURL(4, 0);
+    const baseAddress='https://surabbit.com', qrImage=document.getElementById('qrImage');
+    let currentSource='';
+    const updateQr=source=>{
+      const target=new URL(baseAddress);
+      if(source) target.searchParams.set('utm_source',source);
+      const nextQr=qrcode(0,'M');
+      nextQr.addData(target.toString());
+      nextQr.make();
+      qrImage.src=nextQr.createDataURL(4,0);
+    };
+    updateQr('');
     const addressCard=document.querySelector('.address-card'), promoFold=document.getElementById('promoFold');
+    const publishPageAddress=new URL(window.location.origin);
+    publishPageAddress.searchParams.set('utm_source',window.location.hostname);
+    addressCard.href=publishPageAddress.toString();
+    const sourceDialog=document.getElementById('sourceDialog'), sourceForm=document.getElementById('sourceForm'), sourceInput=document.getElementById('sourceInput'), sourceError=document.getElementById('sourceError'), sourceCancel=document.getElementById('sourceCancel');
     let longPressTimer, longPressTriggered=false;
     const setPromoOpen=open=>{
       promoFold.setAttribute('aria-hidden',String(!open));
       promoFold.inert=!open;
       promoFold.classList.toggle('is-open',open);
     };
+    const openSourceDialog=()=>{
+      sourceInput.value=currentSource;
+      sourceError.textContent='';
+      sourceDialog.hidden=false;
+      sourceInput.focus();
+    };
+    const closeSourceDialog=()=>{sourceDialog.hidden=true};
     const cancelLongPress=()=>{clearTimeout(longPressTimer);longPressTimer=null};
     addressCard.addEventListener('pointerdown',()=>{
       longPressTriggered=false;
       longPressTimer=setTimeout(()=>{
         longPressTriggered=true;
-        setPromoOpen(!promoFold.classList.contains('is-open'));
+        openSourceDialog();
       },600);
     });
     ['pointerup','pointercancel','pointerleave'].forEach(type=>addressCard.addEventListener(type,cancelLongPress));
     addressCard.addEventListener('contextmenu',event=>event.preventDefault());
     addressCard.addEventListener('click',event=>{if(longPressTriggered){event.preventDefault();longPressTriggered=false}});
+    sourceCancel.addEventListener('click',closeSourceDialog);
+    sourceDialog.addEventListener('click',event=>{if(event.target===sourceDialog) closeSourceDialog()});
+    sourceForm.addEventListener('submit',event=>{
+      event.preventDefault();
+      const value=sourceInput.value.trim();
+      if(!/^[A-Za-z0-9_-]{1,64}$/.test(value)){
+        sourceError.textContent='请输入 1–64 位字母、数字、短横线或下划线。';
+        sourceInput.focus();
+        return;
+      }
+      currentSource=value;
+      updateQr(currentSource);
+      closeSourceDialog();
+      setPromoOpen(true);
+    });
     const downloadButton=document.getElementById('downloadCard');
     const waitForImages=async root=>{
       const images=[...root.querySelectorAll('img')];
@@ -347,7 +403,7 @@
           pdf.line(x+horizontalDirection*cropOffset,y,x+horizontalDirection*(cropOffset+cropLength),y);
           pdf.line(x,y+verticalDirection*cropOffset,x,y+verticalDirection*(cropOffset+cropLength));
         });
-        pdf.save('surabbit-promo-card.pdf');
+        pdf.save(`surabbit-promo-card${currentSource?`-${currentSource}`:''}.pdf`);
       }catch(error){
         console.error('Unable to generate the promotional card PDF.',error);
         window.print();
