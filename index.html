@@ -300,7 +300,7 @@
     };
     updateQr('');
     const addressCard=document.querySelector('.address-card'), promoFold=document.getElementById('promoFold');
-    const publishPageAddress=new URL(window.location.origin);
+    const publishPageAddress=new URL(baseAddress);
     publishPageAddress.searchParams.set('utm_source',window.location.hostname);
     addressCard.href=publishPageAddress.toString();
     const sourceDialog=document.getElementById('sourceDialog'), sourceForm=document.getElementById('sourceForm'), sourceInput=document.getElementById('sourceInput'), sourceError=document.getElementById('sourceError'), sourceCancel=document.getElementById('sourceCancel');
